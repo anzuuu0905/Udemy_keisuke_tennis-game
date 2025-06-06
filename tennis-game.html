@@ -233,9 +233,9 @@
         function resetBall() {
             ball.x = canvas.width / 2;
             ball.y = canvas.height / 2;
-            // 現在のスピードから20%減速して再開（最低でも初期スピード）
+            // 現在のスピードから10%減速して再開（最低でも初期スピード）
             const currentSpeed = Math.abs(ball.dx);
-            const newSpeed = Math.max(currentSpeed * 0.8, BALL_SPEED);
+            const newSpeed = Math.max(currentSpeed * 0.9, BALL_SPEED);
             ball.dx = ball.dx > 0 ? -newSpeed : newSpeed;
             ball.dy = (Math.random() - 0.5) * newSpeed * 0.5;
             // ラリーカウントをリセット
