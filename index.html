@@ -179,7 +179,7 @@
             ball.y += ball.dy;
 
             // ラリーが続くごとにスピードを少しずつ上げる
-            if (rallyCount > 0 && Math.abs(ball.dx) < MAX_BALL_SPEED) {
+            if (rallyCount > 0) {
                 ball.dx = ball.dx * (1 + SPEED_INCREMENT);
                 ball.dy = ball.dy * (1 + SPEED_INCREMENT);
             }
