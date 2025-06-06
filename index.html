@@ -81,9 +81,9 @@
         const PADDLE_HEIGHT = 80;
         const BALL_SIZE = 10;
         const PADDLE_SPEED = 5;
-        const BALL_SPEED = 3; // 初期スピードを遅くする
+        const BALL_SPEED = 6; // 初期スピード
         const WINNING_SCORE = 5;
-        const SPEED_INCREMENT = 0.1; // ラリー中のスピード増加率を大幅に上げる（10%）
+        const SPEED_INCREMENT = 0.02; // ラリー中のスピード増加率（2%）
 
         // ゲーム状態
         let gameRunning = false;
@@ -233,9 +233,11 @@
         function resetBall() {
             ball.x = canvas.width / 2;
             ball.y = canvas.height / 2;
-            // スピードを元の値にリセット（方向は交互に変わる）
-            ball.dx = ball.dx > 0 ? -BALL_SPEED : BALL_SPEED;
-            ball.dy = (Math.random() - 0.5) * BALL_SPEED;
+            // 現在のスピードから20%減速して再開（最低でも初期スピード）
+            const currentSpeed = Math.abs(ball.dx);
+            const newSpeed = Math.max(currentSpeed * 0.8, BALL_SPEED);
+            ball.dx = ball.dx > 0 ? -newSpeed : newSpeed;
+            ball.dy = (Math.random() - 0.5) * newSpeed * 0.5;
             // ラリーカウントをリセット
             rallyCount = 0;
 
