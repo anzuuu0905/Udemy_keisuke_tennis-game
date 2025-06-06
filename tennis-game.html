@@ -178,12 +178,6 @@
             ball.x += ball.dx;
             ball.y += ball.dy;
 
-            // ラリーが続くごとにスピードを少しずつ上げる
-            if (rallyCount > 0) {
-                ball.dx = ball.dx * (1 + SPEED_INCREMENT);
-                ball.dy = ball.dy * (1 + SPEED_INCREMENT);
-            }
-
             // 上下の壁に当たったら反射
             if (ball.y - ball.size / 2 <= 0 || ball.y + ball.size / 2 >= canvas.height) {
                 ball.dy = -ball.dy;
@@ -196,11 +190,11 @@
                 ball.y + ball.size / 2 >= leftPaddle.y &&
                 ball.y - ball.size / 2 <= leftPaddle.y + leftPaddle.height &&
                 ball.dx < 0) {
-                ball.dx = Math.abs(ball.dx);
+                ball.dx = Math.abs(ball.dx) * (1 + SPEED_INCREMENT);
                 // パドルの位置によって角度を変更
                 const relativeIntersectY = (leftPaddle.y + leftPaddle.height / 2) - ball.y;
                 const normalizedRelativeIntersection = relativeIntersectY / (leftPaddle.height / 2);
-                ball.dy = -normalizedRelativeIntersection * BALL_SPEED;
+                ball.dy = -normalizedRelativeIntersection * Math.abs(ball.dx);
                 // ラリーカウントを増やす
                 rallyCount++;
                 // ボールをパドルの外側に配置
@@ -213,11 +207,11 @@
                 ball.y + ball.size / 2 >= rightPaddle.y &&
                 ball.y - ball.size / 2 <= rightPaddle.y + rightPaddle.height &&
                 ball.dx > 0) {
-                ball.dx = -Math.abs(ball.dx);
+                ball.dx = -Math.abs(ball.dx) * (1 + SPEED_INCREMENT);
                 // パドルの位置によって角度を変更
                 const relativeIntersectY = (rightPaddle.y + rightPaddle.height / 2) - ball.y;
                 const normalizedRelativeIntersection = relativeIntersectY / (rightPaddle.height / 2);
-                ball.dy = -normalizedRelativeIntersection * BALL_SPEED;
+                ball.dy = -normalizedRelativeIntersection * Math.abs(ball.dx);
                 // ラリーカウントを増やす
                 rallyCount++;
                 // ボールをパドルの外側に配置
