@@ -15,26 +15,26 @@
             height: 100vh;
             font-family: Arial, sans-serif;
         }
-        
+
         #gameContainer {
             position: relative;
         }
-        
+
         #gameCanvas {
             border: 2px solid #fff;
             background-color: #000;
         }
-        
+
         #score {
             position: absolute;
-            top: 20px;
+            top: -50px;
             left: 50%;
             transform: translateX(-50%);
             color: #fff;
             font-size: 24px;
             font-weight: bold;
         }
-        
+
         #instructions {
             position: absolute;
             bottom: -40px;
@@ -44,7 +44,7 @@
             font-size: 14px;
             text-align: center;
         }
-        
+
         #gameOver {
             position: absolute;
             top: 50%;
@@ -82,7 +82,6 @@
         const BALL_SIZE = 10;
         const PADDLE_SPEED = 5;
         const BALL_SPEED = 5;
-        const MAX_BALL_SPEED = 10; // 最大スピード制限
         const WINNING_SCORE = 5;
         const SPEED_INCREMENT = 0.02; // ラリー中のスピード増加率
 
@@ -123,7 +122,7 @@
 
         document.addEventListener('keydown', (e) => {
             keys[e.key] = true;
-            
+
             if (e.key === ' ') {
                 e.preventDefault();
                 if (leftScore >= WINNING_SCORE || rightScore >= WINNING_SCORE) {
@@ -152,7 +151,7 @@
             // コンピューターパドル (AI)
             const paddleCenter = rightPaddle.y + rightPaddle.height / 2;
             const aiSpeed = PADDLE_SPEED * 0.85; // プレイヤーより少し遅く
-            
+
             if (ball.dx > 0) { // ボールが右に向かっている時のみ動く
                 if (paddleCenter < ball.y - 10) {
                     rightPaddle.dy = aiSpeed;
@@ -234,8 +233,8 @@
         function resetBall() {
             ball.x = canvas.width / 2;
             ball.y = canvas.height / 2;
-            // スピードを元に戻す
-            ball.dx = ball.dx > 0 ? BALL_SPEED : -BALL_SPEED;
+            // スピードを元の値にリセット（方向は交互に変わる）
+            ball.dx = ball.dx > 0 ? -BALL_SPEED : BALL_SPEED;
             ball.dy = (Math.random() - 0.5) * BALL_SPEED;
             // ラリーカウントをリセット
             rallyCount = 0;
